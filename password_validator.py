@@ -11,9 +11,20 @@ def password_check():
      Include both the small and capital case letters.
      The output will be green if it passed the validation and red if it didn’t.
      The program return exit code 0 if it passed the validation and exit code 1 if it didn’t.
+     feature: If the option "-f" is added as a second argument, the password should be retrieved from a file that
+     will be written after it (third argument) as a string according to its path
     """
     try:
-        passwd = str(sys.argv[1])
+        secondarg = str(sys.argv[1])
+        if secondarg == '-f':
+            try:
+                with open(sys.argv[2]) as f:
+                    passwd = f.readlines()[0]
+            except:
+                print(sys.argv[2] + " is no such file or directory")
+                return
+        else:
+            passwd = secondarg
     except:
         passwd = ""
     errors = []
